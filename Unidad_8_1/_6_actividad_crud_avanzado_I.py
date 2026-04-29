@@ -22,6 +22,35 @@ productos = [
 # Declaramos la estructura del diccionario producto:
 producto = {"categoria": None, "nombre": None, "precio_unitario": None}
 
+# Funcion validar categoria
+# Parametros: categoria:string
+# Retorno: True if OK o False:bool
+def validar_categoria(categoria):
+    if categoria.strip() != "":
+        return True
+    else:
+        return False
+
+
+# Funcion validar nombre
+# Parametros: nombre:string
+# Retorno: True if OK o False:bool
+def validar_nombre(nombre):
+    if nombre.strip() != "":
+        return True
+    else:
+        return False
+
+
+# Funcion validar precio_unitario
+# Parametros: precio_unitario:str
+# Retorno: True if OK o False:bool
+def validar_precio_unitario(precio_unitario):
+    if precio_unitario.strip() == "":
+        return False
+    if not precio_unitario.replace(".", "", 1).isdigit():
+        return False
+    return True
 
 # Funcion leer consola
 # Parametros: none
@@ -57,36 +86,6 @@ def leer_producto():
 
     return producto
 
-
-# Funcion validar categoria
-# Parametros: categoria:string
-# Retorno: True if OK o False:bool
-def validar_categoria(categoria):
-    if categoria.strip() != "":
-        return True
-    else:
-        return False
-
-
-# Funcion validar nombre
-# Parametros: nombre:string
-# Retorno: True if OK o False:bool
-def validar_nombre(nombre):
-    if nombre.strip() != "":
-        return True
-    else:
-        return False
-
-
-# Funcion validar precio_unitario
-# Parametros: precio_unitario:str
-# Retorno: True if OK o False:bool
-def validar_precio_unitario(precio_unitario):
-    if precio_unitario.strip() == "":
-        return False
-    if not precio_unitario.replace(".", "", 1).isdigit():
-        return False
-    return True
 
 
 # Funcion generar id_producto
