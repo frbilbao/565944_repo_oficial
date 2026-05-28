@@ -1,7 +1,10 @@
 import re
 from shared import utilities
+from core import storage
 
-
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
+RUTA_PRODUCTOS = BASE_DIR.parent.parent / "data" / "productos.json"
 
 # Funcion generar id_producto
 def generar_id_producto(productos):
@@ -13,9 +16,11 @@ def generar_id_producto(productos):
 
 
 # Funcion persistir producto
-def crear_producto(productos, producto):
+def crear_producto(producto):
+    productos = storage.read_data(RUTA_PRODUCTOS)
     producto["id_producto"] = generar_id_producto(productos)
     productos.append(producto)
+    storage.write_data(RUTA_PRODUCTOS, productos)
     return True
 
 

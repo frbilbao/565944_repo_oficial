@@ -27,7 +27,7 @@ def main():
                 # Alta de producto
                 try:
                     producto = inputHandler.leer_producto()
-                    response = services.crear_producto(productos, producto)
+                    response = services.crear_producto(producto)
                     print("Producto insertado exitosamente") if response else None
                 except Exception as e:
                     print(f"Error al crear el producto: {e}")
@@ -66,21 +66,6 @@ def main():
 # Invocar a la función principal
 if __name__ == "__main__":
 
-    # Declaramos la variable global (se pueden cargar algunos registros para inicializarla)
-    productos = [
-        {
-            "id_producto": 1,
-            "categoria": "Escritura",
-            "nombre": "Lápiz negro HB",
-            "precio_unitario": 350,
-        },
-        {
-            "id_producto": 2,
-            "categoria": "Escritura",
-            "nombre": "Bolígrafo azul",
-            "precio_unitario": 500,
-        },
-    ]
     try:
         main()
     except KeyboardInterrupt:
