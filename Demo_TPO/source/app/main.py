@@ -5,8 +5,9 @@
 # Importamos librerias externas
 from tabulate import tabulate
 from core import services
+from core import storage
 from interface import inputHandler
-
+from config import *
 
 # Declaración de la Funcion Principal
 def main():
@@ -34,7 +35,11 @@ def main():
 
             case "2":
                 # Listar productos
-                print(tabulate(productos[:5], headers="keys", tablefmt="grid"))
+                try:
+                    productos = services.get_productos()
+                    print(tabulate(productos[:5], headers="keys", tablefmt="grid"))
+                except Exception as e:
+                    print(f"Error al listar productos: {e}")
 
             case "3":
                 # Buscar producto por id_producto
@@ -43,7 +48,7 @@ def main():
                 except ValueError:
                     print("ID inválido, debe ser un número entero.")
                     continue
-                productos_found = services.get_producto_by_id(productos, id_producto)
+                productos_found = services.get_producto_by_id(id_producto)
                 if productos_found:
                     print(tabulate(productos_found, headers="keys", tablefmt="grid"))
                 else:
@@ -51,9 +56,13 @@ def main():
 
             case "4":
                 # buscar producto por nombre de producto
-                nombre = input("Ingrese el nombre del producto a buscar - total o parcial: ")
-                productos_found = services.get_producto_by_nombre(productos, nombre)
-                print(tabulate(productos_found[:5], headers="keys", tablefmt="grid"))
+                try:
+                    nombre = input("Ingrese el nombre del producto a buscar - total o parcial: ")
+                    productos_found = services.get_producto_by_nombre(nombre)
+                    print(tabulate(productos_found[:5], headers="keys", tablefmt="grid"))
+                except Exception as e:
+                    print(f"Error al buscar producto por nombre: {e}")
+
                 
             case "5":
                 # Terminar App
@@ -67,6 +76,7 @@ def main():
 if __name__ == "__main__":
 
     try:
+        storage.inicializar_storage(RUTA_PRODUCTOS)
         main()
     except KeyboardInterrupt:
         print("\nPrograma interrumpido por el usuario.")
